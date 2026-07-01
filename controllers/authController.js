@@ -21,7 +21,7 @@ const register = async (req, res) => {
             message: "User registration success"
         });
     }
-      catch (err) {
+    catch (err) {
         res.status(500).json({
             success: false,
             message: "Unable to register user",
@@ -31,24 +31,24 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-    try{
+    try {
         const { email, password } = req.body;
         console.log(req.body);
         const user = await User.findOne({ email });
-        
-        if (!user){
+
+        if (!user) {
             return res.status(401).json({
-                success:false,
-                message:"Invalidid Email ID"
+                success: false,
+                message: "Invalid Email ID"
             });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
 
-        if(!isMatch){
+        if (!isMatch) {
             return res.status(403).json({
-                success:false,
-                message:"Invalid Password"
+                success: false,
+                message: "Invalid Password"
             });
         }
 
@@ -72,7 +72,7 @@ const login = async (req, res) => {
 };
 
 const profile = (req, res) => {
-    res.json ({
+    res.json({
         success: true,
         message: "Profile Fetched",
         user: req.user
